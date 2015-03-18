@@ -179,7 +179,7 @@ if ( ! function_exists( 'flat_filter_styles' ) ) :
 	}
 endif;
 
-add_action('tgmpa_register', 'zerif_register_required_plugins');
+add_action('tgmpa_register', 'flat_register_required_plugins');
 
 function flat_register_required_plugins()
 {
