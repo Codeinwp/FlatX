@@ -164,11 +164,6 @@ if ( ! function_exists( 'get_the_post_navigation' ) ) :
 		$previous   = get_previous_post_link( '<div class="nav-previous">%link</div>', $args['prev_text'] );
 		$next       = get_next_post_link( '<div class="nav-next">%link</div>', $args['next_text'] );
 
-		// Only add markup if there's somewhere to navigate to.
-		if ( $previous || $next ) {
-			$navigation = _navigation_markup( $previous . $next, 'post-navigation', $args['screen_reader_text'] );
-		}
-
 		return $navigation;
 	}
 endif;
@@ -219,12 +214,6 @@ if ( ! function_exists( 'get_the_posts_pagination' ) ) :
 				$args['type'] = 'plain';
 			}
 
-			// Set up paginated links.
-			$links = paginate_links( $args );
-
-			if ( $links ) {
-				$navigation = _navigation_markup( $links, 'pagination', $args['screen_reader_text'] );
-			}
 		}
 
 		return $navigation;
