@@ -583,3 +583,14 @@ function flat_logo() {
 		echo '<h2 itemprop="description" class="site-description">' . esc_attr( $tagline ) . '</h2>';
 	}
 }
+
+function flat_customizer_registers() {
+	
+	wp_enqueue_script( 'flat_customizer_script', get_template_directory_uri() . '/assets/js/flat_customizer.js', array("jquery"), '20120206', true  );
+	wp_localize_script( 'flat_customizer_script', 'flatCustomizerObject', array(
+		'documentation' => __( 'View Documentation', 'flat' ),
+		'review' => __( 'Leave us a review(it will help us)', 'flat' ),
+		'github' => __( 'Github', 'flat' )
+	) );
+}
+add_action( 'customize_controls_enqueue_scripts', 'flat_customizer_registers' );
