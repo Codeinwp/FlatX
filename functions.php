@@ -47,9 +47,6 @@ if ( ! function_exists( 'flat_setup' ) ) :
 			'admin-preview-callback' => '',
 		);
 		
-		/* woocommerce support */
-		add_theme_support( 'woocommerce' );
-		
 		/* tgm-plugin-activation */
         require_once get_template_directory() . '/class-tgm-plugin-activation.php';
 		add_theme_support( 'custom-background', $custom_background_support ); # @link http://codex.wordpress.org/Custom_Backgrounds
