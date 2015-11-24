@@ -9,6 +9,21 @@ include_once ABSPATH . WPINC . '/class-wp-customize-control.php';
  *
  * @param object $wp_customize The WordPress customizer object
  */
+class Flat_Message extends WP_Customize_Control{
+    private $message = '';
+    public function __construct( $manager, $id, $args = array() ) {
+        parent::__construct( $manager, $id, $args );
+        if(!empty($args['flat_message'])){
+            $this->message = $args['flat_message'];
+        }
+    }
+    
+    public function render_content(){
+        echo '<span class="customize-control-title">'.$this->label.'</span>';
+        echo $this->message;
+    }
+}  
+ 
 function flat_customize_register( $wp_customize ) {
 	// Logo
 	$wp_customize->add_setting( 'flat_theme_options[logo]', array(
@@ -402,6 +417,50 @@ function flat_customize_register( $wp_customize ) {
 		'settings' => 'flat_theme_options[archive_content]',
 		'type' => 'checkbox',
 	) );
+	
+	
+	/*********************************/
+	/******* PLUS SECTIONS ***********/
+	/*********************************/
+	
+	$wp_customize->add_section( 'flat_footer_section' , array(
+		'title'       => esc_html__( 'Footer', 'flat' ),
+		'priority'    => 30,
+	));
+	
+	$wp_customize->add_setting( 'flat_footer_widgets', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_footer_widgets',
+		array(
+			'label'    => __( 'Footer widgets', 'flat' ),
+			'section' => 'flat_footer_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the footer area!', 'flat' )
+	   )
+	));
+	
+	$wp_customize->add_setting( 'flat_footer_copyright', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_footer_copyright',
+		array(
+			'label'    => __( 'Copyright', 'flat' ),
+			'section' => 'flat_footer_section',
+			'priority' => 2,
+			'flat_message' => __( 'Also, you will be able to remove the footer link "Powered by WordPress" and add your own copyright.', 'flat' )
+	   )
+	));
+
+	
+	
+	
+	
+	
+	
+	
 }
 add_action( 'customize_register', 'flat_customize_register' );
 
@@ -414,6 +473,10 @@ function flat_sanitize_site_title_font_family( $site_title_font_family ) {
 	}
 
 	return $site_title_font_family;
+}
+
+function flat_sanitize_text( $input ) {
+    return wp_kses_post( force_balance_tags( $input ) );
 }
 
 function flat_sanitize_global_font_family( $global_font_family ) {

@@ -75,6 +75,8 @@ if ( ! function_exists( 'flat_setup' ) ) :
 		add_action( 'flat_404_content', 'flat_output_404_content' ); # Outputs a helpful message on 404 pages
 		add_action( 'widgets_init', 'flat_widgets_init' ); # Registers Flat's sidebar
 		add_action( 'wp_enqueue_scripts', 'flat_scripts_styles' ); # Enqueue's Flat's scripts & styles
+		
+		add_action( 'admin_enqueue_scripts', 'flat_admin_styles', 10 );
 	}
 endif;
 add_action( 'after_setup_theme', 'flat_setup' );
@@ -142,8 +144,13 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {
 			wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/assets/js/html5shiv.min.js', array(), '3.7.2', false );
 		}
+		
 	}
 endif;
+
+function flat_admin_styles() {
+	wp_enqueue_style( 'flat_admin_stylesheet', get_template_directory_uri() . '/assets/css/admin-style.css', array(), '1.1', false );
+}
 
 # The following function uses a filter introduced in WP 4.1
 if ( version_compare( '4.1', $wp_version, '<=' ) ) :
