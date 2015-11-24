@@ -24,7 +24,7 @@ function flat_customize_register( $wp_customize ) {
 
 	// Site Title Font Family
 	$wp_customize->add_setting( 'flat_theme_options[site_title_font_family]', array(
-		'default' => 'yesteryear',
+		'default' => 'Amatic+SC',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_site_title_font_family',
@@ -131,7 +131,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Global Font Family
 		$wp_customize->add_setting( 'flat_theme_options[global_font_family]', array(
-			'default' => 'Roboto',
+			'default' => 'Roboto:400,700',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_global_font_family',
@@ -153,7 +153,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Heading Font Family
 		$wp_customize->add_setting( 'flat_theme_options[heading_font_family]', array(
-			'default' => 'Roboto Slab',
+			'default' => 'Roboto+Slab',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_heading_font_family',
@@ -177,7 +177,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Sub-Heading Font Family
 		$wp_customize->add_setting( 'flat_theme_options[sub_heading_font_family]', array(
-			'default' => 'Roboto Condensed',
+			'default' => 'Roboto+Condensed',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_subheading_font_family',
