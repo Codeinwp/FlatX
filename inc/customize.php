@@ -747,7 +747,8 @@ function flat_customizer_registers() {
 	wp_localize_script( 'flat_customizer_script', 'flatCustomizerObject', array(
 		'documentation' => __( 'View Documentation', 'flat' ),
 		'review' => __( 'Leave us a review(it will help us)', 'flat' ),
-		'github' => __( 'Github', 'flat' )
+		'github' => __( 'Github', 'flat' ),
+		'pro' => __( 'Upgrade to pro', 'flat' ),
 	) );
 }
 add_action( 'customize_controls_enqueue_scripts', 'flat_customizer_registers' );
