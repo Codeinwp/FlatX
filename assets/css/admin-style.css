@@ -1,0 +1,17 @@
+#accordion-section-flat_footer_section .accordion-section-title, #accordion-section-flat_woocommerce_section .accordion-section-title,#accordion-section-flat_colorscheme_section .accordion-section-title, #accordion-section-flat_sidebar_section .accordion-section-title, #accordion-section-flat_width_section .accordion-section-title, #accordion-section-flat_infinitescroll_section .accordion-section-title {
+	background-image:url(../img/gray-lines.png);
+	background-repeat:repeat;
+}
+
+#accordion-section-flat_footer_section .accordion-section-title:after, #accordion-section-flat_woocommerce_section .accordion-section-title:after, #accordion-section-flat_colorscheme_section .accordion-section-title:after, #accordion-section-flat_sidebar_section .accordion-section-title:after, #accordion-section-flat_width_section .accordion-section-title:after, #accordion-section-flat_infinitescroll_section .accordion-section-title:after {
+	content: "\f160";	
+}
+.flat-upgrade-to-pro-button {
+	padding: 3px 6px !important;
+    line-height: 1.5 !important;
+    font-size: 9px !important;
+    color: #ffffff !important;
+    background-color: #EA6F60;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}	

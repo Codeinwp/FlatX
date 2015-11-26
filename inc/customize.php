@@ -9,6 +9,21 @@ include_once ABSPATH . WPINC . '/class-wp-customize-control.php';
  *
  * @param object $wp_customize The WordPress customizer object
  */
+class Flat_Message extends WP_Customize_Control{
+    private $message = '';
+    public function __construct( $manager, $id, $args = array() ) {
+        parent::__construct( $manager, $id, $args );
+        if(!empty($args['flat_message'])){
+            $this->message = $args['flat_message'];
+        }
+    }
+    
+    public function render_content(){
+        echo '<span class="customize-control-title">'.$this->label.'</span>';
+        echo $this->message;
+    }
+}  
+ 
 function flat_customize_register( $wp_customize ) {
 	// Logo
 	$wp_customize->add_setting( 'flat_theme_options[logo]', array(
@@ -24,7 +39,7 @@ function flat_customize_register( $wp_customize ) {
 
 	// Site Title Font Family
 	$wp_customize->add_setting( 'flat_theme_options[site_title_font_family]', array(
-		'default' => 'yesteryear',
+		'default' => 'Amatic+SC',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_site_title_font_family',
@@ -93,7 +108,7 @@ function flat_customize_register( $wp_customize ) {
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'default' => '#333',
-			'sanitize_callback' => 'sanitize_hex_color',
+			'sanitize_callback' => 'sanitize_hex_color'
 		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sidebar_background_color', array(
 			'label' => __( 'Sidebar Background Color', 'flat' ),
@@ -131,7 +146,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Global Font Family
 		$wp_customize->add_setting( 'flat_theme_options[global_font_family]', array(
-			'default' => 'Roboto',
+			'default' => 'Roboto:400,700',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_global_font_family',
@@ -153,7 +168,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Heading Font Family
 		$wp_customize->add_setting( 'flat_theme_options[heading_font_family]', array(
-			'default' => 'Roboto Slab',
+			'default' => 'Roboto+Slab',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_heading_font_family',
@@ -177,7 +192,7 @@ function flat_customize_register( $wp_customize ) {
 
 		// Sub-Heading Font Family
 		$wp_customize->add_setting( 'flat_theme_options[sub_heading_font_family]', array(
-			'default' => 'Roboto Condensed',
+			'default' => 'Roboto+Condensed',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_subheading_font_family',
@@ -402,6 +417,144 @@ function flat_customize_register( $wp_customize ) {
 		'settings' => 'flat_theme_options[archive_content]',
 		'type' => 'checkbox',
 	) );
+	
+	
+	/*********************************/
+	/******* PLUS SECTIONS ***********/
+	/*********************************/
+	
+	/* Footer */
+	$wp_customize->add_section( 'flat_footer_section' , array(
+		'title'       => esc_html__( 'Footer', 'flat' ),
+		'priority'    => 30,
+	));
+	
+	$wp_customize->add_setting( 'flat_footer_widgets', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_footer_widgets',
+		array(
+			'label'    => __( 'Footer widgets', 'flat' ),
+			'section' => 'flat_footer_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the footer area!', 'flat' )
+	   )
+	));
+	
+	$wp_customize->add_setting( 'flat_footer_copyright', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_footer_copyright',
+		array(
+			'label'    => __( 'Copyright', 'flat' ),
+			'section' => 'flat_footer_section',
+			'priority' => 2,
+			'flat_message' => __( 'Also, you will be able to remove the footer link "Powered by WordPress" and add your own copyright.', 'flat' )
+	   )
+	));
+
+	/* WooCommerce */
+	$wp_customize->add_section( 'flat_woocommerce_section' , array(
+		'title'       => esc_html__( 'WooCommerce integration', 'flat' ),
+		'priority'    => 150,
+	));
+	
+	$wp_customize->add_setting( 'flat_woocommerce_setting', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_woocommerce_setting',
+		array(
+			'label'    => __( 'WooCoomerce support', 'flat' ),
+			'section' => 'flat_woocommerce_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with WooCommerce!', 'flat' )
+	   )
+	));
+	
+	/* Color Schemes */
+	$wp_customize->add_section( 'flat_colorscheme_section' , array(
+		'title'       => esc_html__( 'Color schemes', 'flat' ),
+		'priority'    => 100,
+		'panel'       => 'panel_design'
+	));
+	
+	$wp_customize->add_setting( 'flat_colorscheme_setting', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_colorscheme_setting',
+		array(
+			'label'    => __( 'Color schemes', 'flat' ),
+			'section' => 'flat_colorscheme_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for some awesome color schemes!', 'flat' )
+	   )
+	));
+	
+	/* Sidebar position */
+	$wp_customize->add_section( 'flat_sidebar_section' , array(
+		'title'       => esc_html__( 'Sidebar position', 'flat' ),
+		'priority'    => 101,
+		'panel'       => 'panel_design'
+	));
+	
+	$wp_customize->add_setting( 'flat_sidebar_setting', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_sidebar_setting',
+		array(
+			'label'    => __( 'Sidebar position', 'flat' ),
+			'section' => 'flat_sidebar_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the sidebar position!', 'flat' )
+	   )
+	));
+	
+	/* Custom width */
+	$wp_customize->add_section( 'flat_width_section' , array(
+		'title'       => esc_html__( 'Custom width', 'flat' ),
+		'priority'    => 102,
+		'panel'       => 'panel_design'
+	));
+	
+	$wp_customize->add_setting( 'flat_width_setting', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_width_setting',
+		array(
+			'label'    => __( 'Custom width', 'flat' ),
+			'section' => 'flat_width_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the main content width!', 'flat' )
+	   )
+	));
+	
+	/* Infinite scroll */
+	$wp_customize->add_section( 'flat_infinitescroll_section' , array(
+		'title'       => esc_html__( 'Infinite scroll', 'flat' ),
+		'priority'    => 160
+	));
+	
+	$wp_customize->add_setting( 'flat_infinitescroll_setting', array(
+			'sanitize_callback' => 'flat_sanitize_text',
+	) );
+	
+	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_infinitescroll_setting',
+		array(
+			'label'    => __( 'Infinite scroll', 'flat' ),
+			'section' => 'flat_infinitescroll_section',
+			'priority' => 1,
+			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with Jetpack Infinite Scroll option!', 'flat' )
+	   )
+	));
+	
+	
+	
 }
 add_action( 'customize_register', 'flat_customize_register' );
 
@@ -414,6 +567,10 @@ function flat_sanitize_site_title_font_family( $site_title_font_family ) {
 	}
 
 	return $site_title_font_family;
+}
+
+function flat_sanitize_text( $input ) {
+    return wp_kses_post( force_balance_tags( $input ) );
 }
 
 function flat_sanitize_global_font_family( $global_font_family ) {
@@ -583,3 +740,15 @@ function flat_logo() {
 		echo '<h2 itemprop="description" class="site-description">' . esc_attr( $tagline ) . '</h2>';
 	}
 }
+
+function flat_customizer_registers() {
+	
+	wp_enqueue_script( 'flat_customizer_script', get_template_directory_uri() . '/assets/js/flat_customizer.js', array("jquery"), '20120206', true  );
+	wp_localize_script( 'flat_customizer_script', 'flatCustomizerObject', array(
+		'documentation' => __( 'View Documentation', 'flat' ),
+		'review' => __( 'Leave us a review(it will help us)', 'flat' ),
+		'github' => __( 'Github', 'flat' ),
+		'pro' => __( 'Upgrade to pro', 'flat' ),
+	) );
+}
+add_action( 'customize_controls_enqueue_scripts', 'flat_customizer_registers' );
