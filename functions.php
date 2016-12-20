@@ -19,7 +19,7 @@ if ( 1 == count( get_included_files() ) ) {
 require get_template_directory() . '/inc/customize.php'; # Enables user customization via admin panel
 require get_template_directory() . '/inc/hooks.php'; # Enables user customization via WordPress plugin API
 require get_template_directory() . '/inc/template-tags.php'; # Contains functions that output HTML
-
+require_once(get_template_directory() . '/inc/customizer-info/class/class-singleton-customizer-info-section.php' );
 /**
  * Set the max width for embedded content
  *
