@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * Class to display upsells.
  *
