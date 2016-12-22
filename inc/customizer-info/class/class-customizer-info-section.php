@@ -2,7 +2,7 @@
 /**
  * Customizer info main class.
  *
- * @package Constructzine Lite
+ * @package FlatX
  */
 
 /**

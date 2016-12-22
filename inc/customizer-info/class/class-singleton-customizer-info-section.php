@@ -75,7 +75,7 @@ final class Customizer_Info_Singleton {
 
 		// Register sections.
 		$manager->add_section( new Customizer_Info( $manager, 'flat_view_pro', array(
-			'section_title' => __('View PRO version', 'flat'),
+			'section_title' => __('Upgrade to pro', 'flat'),
 			'section_url' => 'https://themeisle.com/plugins/flat-plus/',
 			'section_text' => __('Get it', 'flat'),
 			'priority' => 900,
