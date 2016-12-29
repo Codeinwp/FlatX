@@ -4,26 +4,6 @@
  */
 include_once ABSPATH . WPINC . '/class-wp-customize-control.php';
 
-/**
- * Register customizer controls
- *
- * @param object $wp_customize The WordPress customizer object
- */
-class Flat_Message extends WP_Customize_Control{
-    private $message = '';
-    public function __construct( $manager, $id, $args = array() ) {
-        parent::__construct( $manager, $id, $args );
-        if(!empty($args['flat_message'])){
-            $this->message = $args['flat_message'];
-        }
-    }
-    
-    public function render_content(){
-        echo '<span class="customize-control-title">'.$this->label.'</span>';
-        echo $this->message;
-    }
-}  
- 
 function flat_customize_register( $wp_customize ) {
 
 	require_once( 'class/flat-info.php' );
@@ -435,71 +415,7 @@ function flat_customize_register( $wp_customize ) {
 		'settings' => 'flat_theme_options[archive_content]',
 		'type' => 'checkbox',
 	) );
-	
-	
-	/*********************************/
-	/******* PLUS SECTIONS ***********/
-	/*********************************/
-	
-	/* Color Schemes */
-	$wp_customize->add_section( 'flat_colorscheme_section' , array(
-		'title'       => esc_html__( 'Color schemes', 'flat' ),
-		'priority'    => 100,
-		'panel'       => 'panel_design'
-	));
-	
-	$wp_customize->add_setting( 'flat_colorscheme_setting', array(
-			'sanitize_callback' => 'flat_sanitize_text',
-	) );
-	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_colorscheme_setting',
-		array(
-			'label'    => __( 'Color schemes', 'flat' ),
-			'section' => 'flat_colorscheme_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for some awesome color schemes!', 'flat' )
-	   )
-	));
-	
-	/* Sidebar position */
-	$wp_customize->add_section( 'flat_sidebar_section' , array(
-		'title'       => esc_html__( 'Sidebar position', 'flat' ),
-		'priority'    => 101,
-		'panel'       => 'panel_design'
-	));
-	
-	$wp_customize->add_setting( 'flat_sidebar_setting', array(
-			'sanitize_callback' => 'flat_sanitize_text',
-	) );
-	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_sidebar_setting',
-		array(
-			'label'    => __( 'Sidebar position', 'flat' ),
-			'section' => 'flat_sidebar_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the sidebar position!', 'flat' )
-	   )
-	));
-	
-	/* Custom width */
-	$wp_customize->add_section( 'flat_width_section' , array(
-		'title'       => esc_html__( 'Custom width', 'flat' ),
-		'priority'    => 102,
-		'panel'       => 'panel_design'
-	));
-	
-	$wp_customize->add_setting( 'flat_width_setting', array(
-			'sanitize_callback' => 'flat_sanitize_text',
-	) );
-	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_width_setting',
-		array(
-			'label'    => __( 'Custom width', 'flat' ),
-			'section' => 'flat_width_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the main content width!', 'flat' )
-	   )
-	));
+
 
 }
 add_action( 'customize_register', 'flat_customize_register' );
