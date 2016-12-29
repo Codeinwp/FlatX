@@ -19,7 +19,9 @@ if ( 1 == count( get_included_files() ) ) {
 require get_template_directory() . '/inc/customize.php'; # Enables user customization via admin panel
 require get_template_directory() . '/inc/hooks.php'; # Enables user customization via WordPress plugin API
 require get_template_directory() . '/inc/template-tags.php'; # Contains functions that output HTML
-require_once(get_template_directory() . '/inc/customizer-info/class/class-singleton-customizer-info-section.php' );
+if(!class_exists('Flat_Plus')){
+	require_once(get_template_directory() . '/inc/customizer-info/class/class-singleton-customizer-info-section.php' );
+}
 /**
  * Set the max width for embedded content
  *
@@ -139,6 +141,23 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		wp_enqueue_script( 'flat-js', get_template_directory_uri() . $assets['js'], array( 'jquery' ), $version, false ); # Flat's scripting
 		wp_enqueue_style( 'flat-style', get_stylesheet_uri() ); # Load main stylesheet, for child theme supports
 
+		if(class_exists('Flat_Plus')){
+			$flat_plus_sidebar_position = get_theme_mod('flat_plus_sidebar_position');
+			$inline_style = '';
+			if( !empty($flat_plus_sidebar_position) && $flat_plus_sidebar_position === 'right' ){
+				$inline_style .= '@media (max-width: 1199px) { '.
+				                 '#secondary .toggle-sidebar{ '.
+				                 'float:right; border-width: 0 0 0 1px; } '.
+				                 '#secondary .toggle-navigation { '.
+				                 'float:left; border-width: 0 1px 0 0;} '.
+				                 '.row-offcanvas-left.active {'.
+				                 'left: auto; right: 300px;}'.
+				                 '.row-offcanvas-left .sidebar-offcanvas {'.
+				                 'right: -300px; left: auto; }'.
+				                 '}';
+			}
+			wp_add_inline_style( 'flat-style', $inline_style );
+		}
 
 		# If the `script_loader_tag` filter is unavailable, this script will be added via the `wp_head` hook
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {
