@@ -1,4 +1,8 @@
 
+### 1.7.7 - 01/01/2017
+**Changes:** 
+- Reorganize customize layout
+
 
 ### 1.7.6 - 26/11/2015
 
