@@ -68,7 +68,7 @@ if ( ! function_exists( 'flat_setup' ) ) :
 		add_filter( 'comments_popup_link_attributes', function() { return ' itemprop="discussionUrl"'; } ); # schema.org property on comments links
 		add_filter( 'current_theme_supports-tha_hooks', '__return_true' ); # Enables checking for THA hooks
 		add_filter( 'style_loader_tag', 'flat_filter_styles', 10, 2 ); # Filters style tags as needed
-		add_filter( 'the_content_more_link', 'modify_read_more_link' ); # Enhances appearance of "Read more..." link
+		add_filter( 'the_content_more_link', 'flat_modify_read_more_link' ); # Enhances appearance of "Read more..." link
 		add_filter( 'use_default_gallery_style', '__return_false' ); # Disable default WordPress gallery styling
 		remove_filter( 'the_content','cwp_pac_before_content');
 
@@ -303,6 +303,6 @@ function flat_register_required_plugins()
 /**
  * Enhances "Read more..." links with Bootstrap button styling
  */
-function modify_read_more_link() {
+function flat_modify_read_more_link() {
 	return '<a class="btn btn-default btn-sm" href="' . esc_url( get_permalink() ) . '">' . sprintf( __( 'Continue reading %s', 'flat' ), '<i class="fa fa-angle-double-right"></i></a>' );
 }
