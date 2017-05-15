@@ -1,4 +1,8 @@
 
+### 1.7.8 - 15/05/2017
+**Changes:** 
+- Fixed conflict with Easy Custom Auto Excerpt
+
 ### 1.7.7 - 01/01/2017
 **Changes:** 
 - Reorganize customize layout
