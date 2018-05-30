@@ -225,11 +225,14 @@ function flat_register_required_plugins()
 			array(
 	 
 				'name'      => 'WP Product Review',
-	 
 				'slug'      => 'wp-product-review',
-	 
 				'required'  => false,
-	 
+			),
+
+			array(
+				'name'      => 'Orbit Fox',
+				'slug'      => 'themeisle-companion',
+				'required'  => false,
 			)
 
 		);
