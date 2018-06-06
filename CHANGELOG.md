@@ -1,4 +1,8 @@
 
+ ### v1.7.10 - 2018-06-06 
+ **Changes:** 
+ * Compatibility with Orbit Fox plugin
+ 
 ### 1.7.8 - 15/05/2017
 **Changes:** 
 - Fixed conflict with Easy Custom Auto Excerpt
