@@ -1,4 +1,21 @@
 <?php
+$vendor_file = trailingslashit( get_template_directory() ) . 'vendor/autoload.php';
+if ( is_readable( $vendor_file ) ) {
+	require_once $vendor_file;
+}
+add_filter( 'themeisle_sdk_products', 'flatx_load_sdk' );
+/**
+ * Loads products array.
+ *
+ * @param array $products All products.
+ *
+ * @return array Products array.
+ */
+function flatx_load_sdk( $products ) {
+	$products[] = get_template_directory() . '/style.css';
+
+	return $products;
+}
 /**
  * Flat initiation
  *
@@ -19,8 +36,8 @@ if ( 1 == count( get_included_files() ) ) {
 require get_template_directory() . '/inc/customize.php'; # Enables user customization via admin panel
 require get_template_directory() . '/inc/hooks.php'; # Enables user customization via WordPress plugin API
 require get_template_directory() . '/inc/template-tags.php'; # Contains functions that output HTML
-if(!class_exists('Flat_Plus')){
-	require_once(get_template_directory() . '/inc/customizer-info/class/class-singleton-customizer-info-section.php' );
+if (!class_exists( 'Flat_Plus' )) {
+	require_once( get_template_directory() . '/inc/customizer-info/class/class-singleton-customizer-info-section.php' );
 }
 /**
  * Set the max width for embedded content
@@ -48,9 +65,9 @@ if ( ! function_exists( 'flat_setup' ) ) :
 			'admin-head-callback'    => '',
 			'admin-preview-callback' => '',
 		);
-		
+
 		/* tgm-plugin-activation */
-        require_once get_template_directory() . '/class-tgm-plugin-activation.php';
+		require_once get_template_directory() . '/class-tgm-plugin-activation.php';
 		add_theme_support( 'custom-background', $custom_background_support ); # @link http://codex.wordpress.org/Custom_Backgrounds
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'chat', 'gallery', 'image', 'quote', 'status' ) ); # @link http://codex.wordpress.org/Post%20Formats
 		add_theme_support( 'post-thumbnails' ); # @link http://codex.wordpress.org/Post%20Thumbnails
@@ -65,38 +82,43 @@ if ( ! function_exists( 'flat_setup' ) ) :
 		register_nav_menu( 'primary', __( 'Navigation Menu', 'flat' ) );
 
 		# Add filters
-		add_filter( 'comments_popup_link_attributes', function() { return ' itemprop="discussionUrl"'; } ); # schema.org property on comments links
+		add_filter(
+			'comments_popup_link_attributes', function() {
+				return ' itemprop="discussionUrl"';
+			}
+		); # schema.org property on comments links
 		add_filter( 'current_theme_supports-tha_hooks', '__return_true' ); # Enables checking for THA hooks
 		add_filter( 'style_loader_tag', 'flat_filter_styles', 10, 2 ); # Filters style tags as needed
 		add_filter( 'the_content_more_link', 'flat_modify_read_more_link' ); # Enhances appearance of "Read more..." link
 		add_filter( 'use_default_gallery_style', '__return_false' ); # Disable default WordPress gallery styling
-		remove_filter( 'the_content','cwp_pac_before_content');
+		remove_filter( 'the_content','cwp_pac_before_content' );
 
 		# Add actions
 		add_action( 'flat_html_before', 'flat_doctype' ); # Outputs HTML doctype
 		add_action( 'flat_404_content', 'flat_output_404_content' ); # Outputs a helpful message on 404 pages
 		add_action( 'widgets_init', 'flat_widgets_init' ); # Registers Flat's sidebar
 		add_action( 'wp_enqueue_scripts', 'flat_scripts_styles' ); # Enqueue's Flat's scripts & styles
-		
+
 		add_action( 'admin_enqueue_scripts', 'flat_admin_styles', 10 );
 	}
 endif;
 add_action( 'after_setup_theme', 'flat_setup' );
 
 // unregister all widgets
- function flat_remove_review_widgets() {
-     unregister_widget('cwp_latest_products_widget');
-     unregister_widget('cwp_top_products_widget');
+function flat_remove_review_widgets() {
+	unregister_widget( 'cwp_latest_products_widget' );
+	unregister_widget( 'cwp_top_products_widget' );
 
- }
- add_action('widgets_init', 'flat_remove_review_widgets', 11);
+}
+ add_action( 'widgets_init', 'flat_remove_review_widgets', 11 );
 
 if ( ! function_exists( 'flat_widgets_init' ) ) :
 	/**
 	 * Registers our sidebar with WordPress
 	 */
 	function flat_widgets_init() {
-		register_sidebar( array(
+		register_sidebar(
+			array(
 			'name'          => __( 'Main Widget Area', 'flat' ),
 			'id'            => 'sidebar-1',
 			'description'   => __( 'Appears in the sidebar section of the site', 'flat' ),
@@ -104,7 +126,8 @@ if ( ! function_exists( 'flat_widgets_init' ) ) :
 			'after_widget'  => "\t\t\t\t\t</aside>\n",
 			'before_title'  => "\t\t\t\t\t\t<h3 class='widget-title'>",
 			'after_title'   => "</h3>\n",
-		) );
+			)
+		);
 	}
 endif;
 
@@ -141,20 +164,20 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		wp_enqueue_script( 'flat-js', get_template_directory_uri() . $assets['js'], array( 'jquery' ), $version, false ); # Flat's scripting
 		wp_enqueue_style( 'flat-style', get_stylesheet_uri() ); # Load main stylesheet, for child theme supports
 
-		if(class_exists('Flat_Plus')){
-			$flat_plus_sidebar_position = get_theme_mod('flat_plus_sidebar_position');
+		if (class_exists( 'Flat_Plus' )) {
+			$flat_plus_sidebar_position = get_theme_mod( 'flat_plus_sidebar_position' );
 			$inline_style = '';
-			if( !empty($flat_plus_sidebar_position) && $flat_plus_sidebar_position === 'right' ){
-				$inline_style .= '@media (max-width: 1199px) { '.
-				                 '#secondary .toggle-sidebar{ '.
-				                 'float:right; border-width: 0 0 0 1px; } '.
-				                 '#secondary .toggle-navigation { '.
-				                 'float:left; border-width: 0 1px 0 0;} '.
-				                 '.row-offcanvas-left.active {'.
-				                 'left: auto; right: 300px;}'.
-				                 '.row-offcanvas-left .sidebar-offcanvas {'.
-				                 'right: -300px; left: auto; }'.
-				                 '}';
+			if ( !empty( $flat_plus_sidebar_position ) && $flat_plus_sidebar_position === 'right' ) {
+				$inline_style .= '@media (max-width: 1199px) { ' .
+								 '#secondary .toggle-sidebar{ ' .
+								 'float:right; border-width: 0 0 0 1px; } ' .
+								 '#secondary .toggle-navigation { ' .
+								 'float:left; border-width: 0 1px 0 0;} ' .
+								 '.row-offcanvas-left.active {' .
+								 'left: auto; right: 300px;}' .
+								 '.row-offcanvas-left .sidebar-offcanvas {' .
+								 'right: -300px; left: auto; }' .
+								 '}';
 			}
 			wp_add_inline_style( 'flat-style', $inline_style );
 		}
@@ -163,7 +186,7 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {
 			wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/assets/js/html5shiv.min.js', array(), '3.7.2', false );
 		}
-		
+
 	}
 endif;
 
@@ -215,15 +238,14 @@ if ( ! function_exists( 'flat_filter_styles' ) ) :
 	}
 endif;
 
-add_action('tgmpa_register', 'flat_register_required_plugins');
+add_action( 'tgmpa_register', 'flat_register_required_plugins' );
 
-function flat_register_required_plugins()
-{
+function flat_register_required_plugins() {
 
 		$plugins = array(
 
 			array(
-	 
+
 				'name'      => 'WP Product Review',
 				'slug'      => 'wp-product-review',
 				'required'  => false,
@@ -233,74 +255,69 @@ function flat_register_required_plugins()
 				'name'      => 'Orbit Fox',
 				'slug'      => 'themeisle-companion',
 				'required'  => false,
-			)
+			),
 
 		);
 
-	 
+	$config = array(
 
+		'default_path' => '',
 
-    $config = array(
+		'menu' => 'tgmpa-install-plugins',
 
-        'default_path' => '',
+		'has_notices' => true,
 
-        'menu' => 'tgmpa-install-plugins',
+		'dismissable' => true,
 
-        'has_notices' => true,
+		'dismiss_msg' => '',
 
-        'dismissable' => true,
+		'is_automatic' => false,
 
-        'dismiss_msg' => '',
+		'message' => '',
 
-        'is_automatic' => false,
+		'strings' => array(
 
-        'message' => '',
+			'page_title' => __( 'Install Required Plugins', 'flat' ),
 
-        'strings' => array(
+			'menu_title' => __( 'Install Plugins', 'flat' ),
 
-            'page_title' => __('Install Required Plugins', 'flat'),
+			'installing' => __( 'Installing Plugin: %s', 'flat' ),
 
-            'menu_title' => __('Install Plugins', 'flat'),
+			'oops' => __( 'Something went wrong with the plugin API.', 'flat' ),
 
-            'installing' => __('Installing Plugin: %s', 'flat'),
+			'notice_can_install_required' => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.','flat' ),
 
-            'oops' => __('Something went wrong with the plugin API.', 'flat'),
+			'notice_can_install_recommended' => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.','flat' ),
 
-            'notice_can_install_required' => _n_noop('This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.','flat'),
+			'notice_cannot_install' => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.','flat' ),
 
-            'notice_can_install_recommended' => _n_noop('This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.','flat'),
+			'notice_can_activate_required' => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.','flat' ),
 
-            'notice_cannot_install' => _n_noop('Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.','flat'),
+			'notice_can_activate_recommended' => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.','flat' ),
 
-            'notice_can_activate_required' => _n_noop('The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.','flat'),
+			'notice_cannot_activate' => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.','flat' ),
 
-            'notice_can_activate_recommended' => _n_noop('The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.','flat'),
+			'notice_ask_to_update' => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.','flat' ),
 
-            'notice_cannot_activate' => _n_noop('Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.','flat'),
+			'notice_cannot_update' => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.','flat' ),
 
-            'notice_ask_to_update' => _n_noop('The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.','flat'),
+			'install_link' => _n_noop( 'Begin installing plugin', 'Begin installing plugins','flat' ),
 
-            'notice_cannot_update' => _n_noop('Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.','flat'),
+			'activate_link' => _n_noop( 'Begin activating plugin', 'Begin activating plugins','flat' ),
 
-            'install_link' => _n_noop('Begin installing plugin', 'Begin installing plugins','flat'),
+			'return' => __( 'Return to Required Plugins Installer', 'flat' ),
 
-            'activate_link' => _n_noop('Begin activating plugin', 'Begin activating plugins','flat'),
+			'plugin_activated' => __( 'Plugin activated successfully.', 'flat' ),
 
-            'return' => __('Return to Required Plugins Installer', 'flat'),
+			'complete' => __( 'All plugins installed and activated successfully. %s', 'flat' ),
 
-            'plugin_activated' => __('Plugin activated successfully.', 'flat'),
+			'nag_type' => 'updated',
 
-            'complete' => __('All plugins installed and activated successfully. %s', 'flat'),
+		),
 
-            'nag_type' => 'updated'
+	);
 
-        )
-
-    );
-
-
-    tgmpa($plugins, $config);
-
+	tgmpa( $plugins, $config );
 
 }
 /**

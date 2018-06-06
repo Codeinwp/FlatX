@@ -1,3 +1,4 @@
+// jshint ignore: start
 /* ========================================================================
  * Bootstrap: transition.js v3.3.2
  * http://getbootstrap.com/javascript/#transitions
@@ -5,7 +6,6 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
-
 
 +function ($) {
   'use strict';
@@ -57,7 +57,7 @@
   })
 
 }(jQuery);
-;/* ========================================================================
+/* ========================================================================
  * Bootstrap: alert.js v3.3.2
  * http://getbootstrap.com/javascript/#alerts
  * ========================================================================
@@ -151,7 +151,7 @@
   $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
 
 }(jQuery);
-;/* ========================================================================
+/* ========================================================================
  * Bootstrap: button.js v3.3.2
  * http://getbootstrap.com/javascript/#buttons
  * ========================================================================
@@ -274,6 +274,7 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
+// jshint ignore: start
 
 
 +function ($) {
@@ -504,7 +505,7 @@
   })
 
 }(jQuery);
-;/* ========================================================================
+/* ========================================================================
  * Bootstrap: collapse.js v3.3.2
  * http://getbootstrap.com/javascript/#collapse
  * ========================================================================
@@ -715,7 +716,7 @@
   })
 
 }(jQuery);
-;/* ========================================================================
+/* ========================================================================
  * Bootstrap: dropdown.js v3.3.2
  * http://getbootstrap.com/javascript/#dropdowns
  * ========================================================================
@@ -1208,7 +1209,7 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
-
+// jshint ignore: start
 
 +function ($) {
   'use strict';

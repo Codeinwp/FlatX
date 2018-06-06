@@ -24,13 +24,20 @@ if ( get_the_author_meta( 'description' ) && empty( $single_author_box ) ) {
 	<div class="entry-content" itemprop="articleBody">
 		<?php flat_hook_entry_top(); ?>
 		<?php the_content( __( 'Continue reading', 'flat' ) ); ?>
-		<?php 
+		<?php
 		if ( function_exists( 'cwppos_show_review' ) ) :
-			echo cwppos_show_review(); 
-			
+			echo cwppos_show_review();
+
 		endif;
 		?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links" itemprop="pagination"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
+		<?php wp_link_pages(
+			array(
+			'before' => '<div class="page-links" itemprop="pagination"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>',
+			'after' => '</div>',
+			'link_before' => '<span>',
+			'link_after' => '</span>',
+			)
+		); ?>
 		<?php flat_hook_entry_bottom(); ?>
 	</div>
 	<?php flat_hook_entry_after(); ?>

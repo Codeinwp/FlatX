@@ -87,11 +87,11 @@ class Customizer_Info extends WP_Customize_Section {
 							{{data.section_text}}
 						</a>
 						<# } #>
-                <# } else { #>
-                    <# if ( data.section_text ) { #>
-                        {{{data.section_text}}}
-                    <# } #>
-                <# } #>
+				<# } else { #>
+					<# if ( data.section_text ) { #>
+						{{{data.section_text}}}
+					<# } #>
+				<# } #>
 			</h3>
 		</li>
 		<?php

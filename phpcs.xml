@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset name="Themeisle">
+    <description>Themeisle rules for PHP_CodeSniffer</description>
+
+    <file>.</file>
+
+    <exclude-pattern>node_modules/*</exclude-pattern>
+    <rule ref="WordPress-Core">
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+        <exclude name="Squiz.Commenting.InlineComment.NotCapital" />
+        <exclude name="WordPress.Files.FileName" />
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+        <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
+        <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+        <exclude name="PEAR.NamingConventions" />
+        <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCase" />
+        <exclude name="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed" />
+        <exclude name="Generic.Commenting.DocComment" />
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+        <exclude name="Internal.LineEndings.Mixed" />
+        <exclude name="Squiz.Commenting.ClassComment.Missing" />
+        <exclude name="WordPress.WP.I18n.MismatchedPlaceholders" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
+        <exclude name="WordPress.Arrays.ArrayIndentation" />
+        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.NoSpaceAfterComma" />
+        <exclude name="WordPress.WhiteSpace" />
+        <exclude name="Squiz.PHP.CommentedOutCode.Found" />
+        <exclude name="WordPress.WP.I18n.MissingSingularPlaceholder" />
+        <exclude name="Generic.Formatting.MultipleStatementAlignment" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
+        <exclude name="WordPress.WP.I18n" />
+        <exclude name="Squiz.Commenting.FunctionComment.Missing" />
+        <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineBefore" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.SpacingAfterOpen" />
+        <exclude name="Squiz.Commenting" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.SpacingBeforeClose" />
+        <exclude name="Squiz.PHP.EmbeddedPhp.Empty" />
+        <exclude name="Internal.LineEndings.Mixed" />
+    </rule>
+    <rule ref="WordPress-Docs">
+
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
+        <severity>0</severity>
+    </rule>
+
+</ruleset>

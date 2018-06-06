@@ -13,12 +13,14 @@
 
 		<ol class="comment-list">
 			<?php
-				wp_list_comments( array(
+				wp_list_comments(
+					array(
 					'style'       => 'ol',
 					'format'      => 'html5',
 					'short_ping'  => true,
 					'avatar_size' => 80,
-				) );
+					)
+				);
 			?>
 		</ol>
 
@@ -31,7 +33,7 @@
 		<?php endif; ?>
 
 		<?php if ( ! comments_open() && get_comments_number() ) : ?>
-		<p class="no-comments"><?php _e( 'Comments are closed.' , 'flat' ); ?></p>
+		<p class="no-comments"><?php _e( 'Comments are closed.', 'flat' ); ?></p>
 		<?php endif; ?>
 
 	<?php endif; ?>

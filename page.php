@@ -12,7 +12,14 @@
 					<div class="entry-content" itemprop="articleBody">
 						<?php flat_hook_entry_top(); ?>
 						<?php the_content( __( 'Continue reading <span class="meta-nav">...</span>', 'flat' ) ); ?>
-						<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
+						<?php wp_link_pages(
+							array(
+							'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>',
+							'after' => '</div>',
+							'link_before' => '<span>',
+							'link_after' => '</span>',
+							)
+						); ?>
 						<?php flat_hook_entry_bottom(); ?>
 					</div>
 					<?php flat_hook_entry_after(); ?>

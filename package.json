@@ -1,0 +1,31 @@
+{
+  "name": "flat",
+  "nicename": "flat",
+  "version": "1.7.10",
+  "description": "flatx theme",
+  "category": "themes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codeinwp/flatx.git"
+  },
+  "keywords": [
+    "wordpress-theme"
+  ],
+  "theme": {
+    "textdomain": "flat"
+  },
+  "author": "ThemeIsle <friends@themeisle.com>",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.com/Codeinwp/flatx/issues"
+  },
+  "pot": {
+    "reportmsgidbugsto": "https://github.com/Codeinwp/flatx/issues",
+    "languageteam": "Themeisle Translate <friends@themeisle.com>",
+    "lasttranslator": "Themeisle Translate Team <friends@themeisle.com>"
+  },
+  "devDependencies": {
+    "grunt-theme-fleet": "codeinwp/grunt-theme-fleet",
+    "load-project-config": "~0.2.0"
+  }
+}

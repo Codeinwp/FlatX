@@ -51,7 +51,7 @@ final class Customizer_Info_Singleton {
 	private function setup_actions() {
 
 		// Register panels, sections, settings, controls, and partials.
-		add_action( 'customize_register', array( $this, 'sections' ), 1);
+		add_action( 'customize_register', array( $this, 'sections' ), 1 );
 
 		// Register scripts and styles for the controls.
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_control_scripts' ), 0 );
@@ -74,33 +74,49 @@ final class Customizer_Info_Singleton {
 		$manager->register_section_type( 'Customizer_Info' );
 
 		// Register sections.
-		$manager->add_section( new Customizer_Info( $manager, 'flat_view_pro', array(
-			'section_title' => __('Upgrade to pro', 'flat'),
-			'section_url' => 'https://themeisle.com/plugins/flat-plus/',
-			'section_text' => __('Get it', 'flat'),
-			'priority' => 900,
-		) ) );
+		$manager->add_section(
+			new Customizer_Info(
+				$manager, 'flat_view_pro', array(
+				'section_title' => __( 'Upgrade to pro', 'flat' ),
+				'section_url' => 'https://themeisle.com/plugins/flat-plus/',
+				'section_text' => __( 'Get it', 'flat' ),
+				'priority' => 900,
+				)
+			)
+		);
 
 		// Register sections.
-		$manager->add_section( new Customizer_Info( $manager, 'flat_pro_color', array(
-			'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for some awesome color schemes!', 'flat' ),
-			'panel' => 'panel_design',
-			'priority' => 500,
-		) ) );
+		$manager->add_section(
+			new Customizer_Info(
+				$manager, 'flat_pro_color', array(
+				'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for some awesome color schemes!', 'flat' ),
+				'panel' => 'panel_design',
+				'priority' => 500,
+				)
+			)
+		);
 
 		// Register sections.
-		$manager->add_section( new Customizer_Info( $manager, 'flat_pro_woo', array(
-			'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with WooCommerce!', 'flat' ),
-			'panel' => 'panel_design',
-			'priority' => 501,
-		) ) );
+		$manager->add_section(
+			new Customizer_Info(
+				$manager, 'flat_pro_woo', array(
+				'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with WooCommerce!', 'flat' ),
+				'panel' => 'panel_design',
+				'priority' => 501,
+				)
+			)
+		);
 
 		// Register sections.
-		$manager->add_section( new Customizer_Info( $manager, 'flat_pro_scroll', array(
-			'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with Jetpack Infinite Scroll option!', 'flat' ),
-			'panel' => 'panel_design',
-			'priority' => 500,
-		) ) );
+		$manager->add_section(
+			new Customizer_Info(
+				$manager, 'flat_pro_scroll', array(
+				'section_text' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with Jetpack Infinite Scroll option!', 'flat' ),
+				'panel' => 'panel_design',
+				'priority' => 500,
+				)
+			)
+		);
 	}
 
 	/**
