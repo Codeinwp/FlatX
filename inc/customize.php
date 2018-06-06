@@ -8,41 +8,58 @@ function flat_customize_register( $wp_customize ) {
 
 	require_once( 'class/flat-info.php' );
 
-	$wp_customize->add_section('flat_theme_info', array(
+	$wp_customize->add_section(
+		'flat_theme_info', array(
 		'title' => __( 'View theme info', 'flat' ),
 		'priority' => 0,
-	) );
+		)
+	);
 
-	$wp_customize->add_setting('flat_theme_info', array(
+	$wp_customize->add_setting(
+		'flat_theme_info', array(
 		'capability'        => 'edit_theme_options',
 		'sanitize_callback' => 'flat_sanitize_text',
-	) );
+		)
+	);
 
-	$wp_customize->add_control( new Flat_Info( $wp_customize, 'flat_theme_info', array(
-		'section' => 'flat_theme_info',
-		'priority' => 10,
-	) ) );
+	$wp_customize->add_control(
+		new Flat_Info(
+			$wp_customize, 'flat_theme_info', array(
+			'section' => 'flat_theme_info',
+			'priority' => 10,
+			)
+		)
+	);
 
 	// Logo
-	$wp_customize->add_setting( 'flat_theme_options[logo]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[logo]', array(
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'logo', array(
-		'label' => __( 'Site Logo', 'flat' ),
-		'section' => 'title_tagline',
-		'settings' => 'flat_theme_options[logo]',
-	) ) );
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize, 'logo', array(
+			'label' => __( 'Site Logo', 'flat' ),
+			'section' => 'title_tagline',
+			'settings' => 'flat_theme_options[logo]',
+			)
+		)
+	);
 
 	// Site Title Font Family
-	$wp_customize->add_setting( 'flat_theme_options[site_title_font_family]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[site_title_font_family]', array(
 		'default' => 'Amatic+SC',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_site_title_font_family',
-	) );
-	$wp_customize->add_control( 'site_title_font_family', array(
+		)
+	);
+	$wp_customize->add_control(
+		'site_title_font_family', array(
 		'settings' => 'flat_theme_options[site_title_font_family]',
 		'label' => __( 'Site Title Font Family', 'flat' ),
 		'section' => 'title_tagline',
@@ -56,17 +73,21 @@ function flat_customize_register( $wp_customize ) {
 			'Handlee' => 'Handlee',
 			'Lobster' => 'Lobster',
 			'Lobster+Two' => 'Lobster Two',
-		),
-	) );
+		 ),
+		)
+	);
 
 	// Header Display
-	$wp_customize->add_setting( 'flat_theme_options[header_display]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[header_display]', array(
 		'default' => 'site_title',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_header_display',
-	) );
-	$wp_customize->add_control( 'header_display', array(
+		)
+	);
+	$wp_customize->add_control(
+		'header_display', array(
 		'settings' => 'flat_theme_options[header_display]',
 		'label' => 'Display as',
 		'section' => 'title_tagline',
@@ -75,164 +96,73 @@ function flat_customize_register( $wp_customize ) {
 			'site_title' => __( 'Site Title', 'flat' ),
 			'site_logo' => __( 'Site Logo', 'flat' ),
 			'both_title_logo' => __( 'Both Title &amp; Logo', 'flat' ),
-		),
-	) );
+		 ),
+		)
+	);
 
 	// Favicon
-	$wp_customize->add_setting( 'flat_theme_options[favicon]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[favicon]', array(
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'favicon', array(
-		'label' => __( 'Site Favicon', 'flat' ),
-		'section' => 'title_tagline',
-		'settings' => 'flat_theme_options[favicon]',
-	) ) );
-	
-	if ( class_exists( 'WP_Customize_Panel' ) ):
-	
-		$wp_customize->add_panel( 'panel_design', array(
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize, 'favicon', array(
+			'label' => __( 'Site Favicon', 'flat' ),
+			'section' => 'title_tagline',
+			'settings' => 'flat_theme_options[favicon]',
+			)
+		)
+	);
+
+	if ( class_exists( 'WP_Customize_Panel' ) ) :
+
+		$wp_customize->add_panel(
+			'panel_design', array(
 			'priority' => 29,
 			'capability' => 'edit_theme_options',
 			'theme_supports' => '',
-			'title' => __( 'Design', 'flat' )
-		) );
-			
-		$wp_customize->get_section('colors')->panel = 'panel_design';
-		
-		// Color
-		$wp_customize->add_setting( 'flat_theme_options[sidebar_background_color]', array(
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'default' => '#333',
-			'sanitize_callback' => 'sanitize_hex_color'
-		) );
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sidebar_background_color', array(
-			'label' => __( 'Sidebar Background Color', 'flat' ),
-			'section' => 'colors',
-			'settings' => 'flat_theme_options[sidebar_background_color]',
-		) ) );
-		
-		$wp_customize->get_section('background_image')->panel = 'panel_design';
+			'title' => __( 'Design', 'flat' ),
+			)
+		);
 
-		// Background Size
-		$wp_customize->add_setting( 'flat_theme_options[background_size]', array(
-			'default' => 'cover',
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'sanitize_callback' => 'flat_sanitize_background_size',
-		) );
-		$wp_customize->add_control( 'background_size', array(
-			'settings' => 'flat_theme_options[background_size]',
-			'label' => __( 'Background size', 'flat' ),
-			'section' => 'background_image',
-			'type' => 'radio',
-			'choices' => array(
-				'cover' => __( 'Cover', 'flat' ),
-				'contain' => __( 'Contain', 'flat' ),
-				'initial' => __( 'Initial', 'flat' ),
-			),
-		) );
-
-		// Typography
-		$wp_customize->add_section( 'typography', array(
-			'title' => __( 'Typography', 'flat' ),
-			'priority' => 50,
-			'panel' => 'panel_design'
-		) );
-
-		// Global Font Family
-		$wp_customize->add_setting( 'flat_theme_options[global_font_family]', array(
-			'default' => 'Roboto:400,700',
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'sanitize_callback' => 'flat_sanitize_global_font_family',
-		) );
-		$wp_customize->add_control( 'global_font_family', array(
-			'settings' => 'flat_theme_options[global_font_family]',
-			'label' => __( 'Global Font Family', 'flat' ),
-			'section' => 'typography',
-			'type' => 'select',
-			'choices' => array(
-				'Roboto:400,700' => 'Roboto',
-				'Lato:400,700' => 'Lato',
-				'Droid+Sans:400,700' => 'Droid Sans',
-				'Open+Sans:400,700' => 'Open Sans',
-				'PT+Sans:400,700' => 'PT Sans',
-				'Source+Sans+Pro:400,700' => 'Source Sans Pro',
-			),
-		) );
-
-		// Heading Font Family
-		$wp_customize->add_setting( 'flat_theme_options[heading_font_family]', array(
-			'default' => 'Roboto+Slab',
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'sanitize_callback' => 'flat_sanitize_heading_font_family',
-		) );
-		$wp_customize->add_control( 'heading_font_family', array(
-			'settings' => 'flat_theme_options[heading_font_family]',
-			'label' => __( 'Heading Font Family', 'flat' ),
-			'section' => 'typography',
-			'type' => 'select',
-			'choices' => array(
-				'Roboto+Slab' => 'Roboto Slab',
-				'Droid+Serif' => 'Droid Serif',
-				'Lora' => 'Lora',
-				'Bitter' => 'Bitter',
-				'Arvo' => 'Arvo',
-				'PT+Serif' => 'PT Serif',
-				'Rokkitt' => 'Rokkitt',
-				'Open+Sans+Condensed' => 'Open Sans Condensed',
-			),
-		) );
-
-		// Sub-Heading Font Family
-		$wp_customize->add_setting( 'flat_theme_options[sub_heading_font_family]', array(
-			'default' => 'Roboto+Condensed',
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'sanitize_callback' => 'flat_sanitize_subheading_font_family',
-		) );
-		$wp_customize->add_control( 'sub_heading_font_family', array(
-			'settings' => 'flat_theme_options[sub_heading_font_family]',
-			'label' => __( 'Sub-Heading Font Family', 'flat' ),
-			'section' => 'typography',
-			'type' => 'select',
-			'choices' => array(
-				'Roboto+Condensed' => 'Roboto Condensed',
-				'Open+Sans+Condensed' => 'Open Sans Condensed',
-				'PT+Sans+Narrow' => 'PT Sans Narrow',
-				'Dosis' => 'Dosis',
-				'Abel' => 'Abel',
-				'News+Cycle' => 'News Cycle',
-			),
-		) );
-	
-	else:
+		$wp_customize->get_section( 'colors' )->panel = 'panel_design';
 
 		// Color
-		$wp_customize->add_setting( 'flat_theme_options[sidebar_background_color]', array(
+		$wp_customize->add_setting(
+			'flat_theme_options[sidebar_background_color]', array(
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'default' => '#333',
 			'sanitize_callback' => 'sanitize_hex_color',
-		) );
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sidebar_background_color', array(
-			'label' => __( 'Sidebar Background Color', 'flat' ),
-			'section' => 'colors',
-			'settings' => 'flat_theme_options[sidebar_background_color]',
-		) ) );
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize, 'sidebar_background_color', array(
+				'label' => __( 'Sidebar Background Color', 'flat' ),
+				'section' => 'colors',
+				'settings' => 'flat_theme_options[sidebar_background_color]',
+				)
+			)
+		);
+
+		$wp_customize->get_section( 'background_image' )->panel = 'panel_design';
 
 		// Background Size
-		$wp_customize->add_setting( 'flat_theme_options[background_size]', array(
+		$wp_customize->add_setting(
+			'flat_theme_options[background_size]', array(
 			'default' => 'cover',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_background_size',
-		) );
-		$wp_customize->add_control( 'background_size', array(
+			)
+		);
+		$wp_customize->add_control(
+			'background_size', array(
 			'settings' => 'flat_theme_options[background_size]',
 			'label' => __( 'Background size', 'flat' ),
 			'section' => 'background_image',
@@ -241,23 +171,30 @@ function flat_customize_register( $wp_customize ) {
 				'cover' => __( 'Cover', 'flat' ),
 				'contain' => __( 'Contain', 'flat' ),
 				'initial' => __( 'Initial', 'flat' ),
-			),
-		) );
+			 ),
+			)
+		);
 
 		// Typography
-		$wp_customize->add_section( 'typography', array(
+		$wp_customize->add_section(
+			'typography', array(
 			'title' => __( 'Typography', 'flat' ),
 			'priority' => 50,
-		) );
+			'panel' => 'panel_design',
+			)
+		);
 
 		// Global Font Family
-		$wp_customize->add_setting( 'flat_theme_options[global_font_family]', array(
-			'default' => 'Roboto',
+		$wp_customize->add_setting(
+			'flat_theme_options[global_font_family]', array(
+			'default' => 'Roboto:400,700',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_global_font_family',
-		) );
-		$wp_customize->add_control( 'global_font_family', array(
+			)
+		);
+		$wp_customize->add_control(
+			'global_font_family', array(
 			'settings' => 'flat_theme_options[global_font_family]',
 			'label' => __( 'Global Font Family', 'flat' ),
 			'section' => 'typography',
@@ -269,17 +206,21 @@ function flat_customize_register( $wp_customize ) {
 				'Open+Sans:400,700' => 'Open Sans',
 				'PT+Sans:400,700' => 'PT Sans',
 				'Source+Sans+Pro:400,700' => 'Source Sans Pro',
-			),
-		) );
+			 ),
+			)
+		);
 
 		// Heading Font Family
-		$wp_customize->add_setting( 'flat_theme_options[heading_font_family]', array(
-			'default' => 'Roboto Slab',
+		$wp_customize->add_setting(
+			'flat_theme_options[heading_font_family]', array(
+			'default' => 'Roboto+Slab',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_heading_font_family',
-		) );
-		$wp_customize->add_control( 'heading_font_family', array(
+			)
+		);
+		$wp_customize->add_control(
+			'heading_font_family', array(
 			'settings' => 'flat_theme_options[heading_font_family]',
 			'label' => __( 'Heading Font Family', 'flat' ),
 			'section' => 'typography',
@@ -293,17 +234,21 @@ function flat_customize_register( $wp_customize ) {
 				'PT+Serif' => 'PT Serif',
 				'Rokkitt' => 'Rokkitt',
 				'Open+Sans+Condensed' => 'Open Sans Condensed',
-			),
-		) );
+			 ),
+			)
+		);
 
 		// Sub-Heading Font Family
-		$wp_customize->add_setting( 'flat_theme_options[sub_heading_font_family]', array(
-			'default' => 'Roboto Condensed',
+		$wp_customize->add_setting(
+			'flat_theme_options[sub_heading_font_family]', array(
+			'default' => 'Roboto+Condensed',
 			'capability' => 'edit_theme_options',
 			'type' => 'option',
 			'sanitize_callback' => 'flat_sanitize_subheading_font_family',
-		) );
-		$wp_customize->add_control( 'sub_heading_font_family', array(
+			)
+		);
+		$wp_customize->add_control(
+			'sub_heading_font_family', array(
 			'settings' => 'flat_theme_options[sub_heading_font_family]',
 			'label' => __( 'Sub-Heading Font Family', 'flat' ),
 			'section' => 'typography',
@@ -315,107 +260,267 @@ function flat_customize_register( $wp_customize ) {
 				'Dosis' => 'Dosis',
 				'Abel' => 'Abel',
 				'News+Cycle' => 'News Cycle',
-			),
-		) );
-	
+			 ),
+			)
+		);
+
+	else :
+
+		// Color
+		$wp_customize->add_setting(
+			'flat_theme_options[sidebar_background_color]', array(
+			'capability' => 'edit_theme_options',
+			'type' => 'option',
+			'default' => '#333',
+			'sanitize_callback' => 'sanitize_hex_color',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize, 'sidebar_background_color', array(
+				'label' => __( 'Sidebar Background Color', 'flat' ),
+				'section' => 'colors',
+				'settings' => 'flat_theme_options[sidebar_background_color]',
+				)
+			)
+		);
+
+		// Background Size
+		$wp_customize->add_setting(
+			'flat_theme_options[background_size]', array(
+			'default' => 'cover',
+			'capability' => 'edit_theme_options',
+			'type' => 'option',
+			'sanitize_callback' => 'flat_sanitize_background_size',
+			)
+		);
+		$wp_customize->add_control(
+			'background_size', array(
+			'settings' => 'flat_theme_options[background_size]',
+			'label' => __( 'Background size', 'flat' ),
+			'section' => 'background_image',
+			'type' => 'radio',
+			'choices' => array(
+				'cover' => __( 'Cover', 'flat' ),
+				'contain' => __( 'Contain', 'flat' ),
+				'initial' => __( 'Initial', 'flat' ),
+			 ),
+			)
+		);
+
+		// Typography
+		$wp_customize->add_section(
+			'typography', array(
+			'title' => __( 'Typography', 'flat' ),
+			'priority' => 50,
+			)
+		);
+
+		// Global Font Family
+		$wp_customize->add_setting(
+			'flat_theme_options[global_font_family]', array(
+			'default' => 'Roboto',
+			'capability' => 'edit_theme_options',
+			'type' => 'option',
+			'sanitize_callback' => 'flat_sanitize_global_font_family',
+			)
+		);
+		$wp_customize->add_control(
+			'global_font_family', array(
+			'settings' => 'flat_theme_options[global_font_family]',
+			'label' => __( 'Global Font Family', 'flat' ),
+			'section' => 'typography',
+			'type' => 'select',
+			'choices' => array(
+				'Roboto:400,700' => 'Roboto',
+				'Lato:400,700' => 'Lato',
+				'Droid+Sans:400,700' => 'Droid Sans',
+				'Open+Sans:400,700' => 'Open Sans',
+				'PT+Sans:400,700' => 'PT Sans',
+				'Source+Sans+Pro:400,700' => 'Source Sans Pro',
+			 ),
+			)
+		);
+
+		// Heading Font Family
+		$wp_customize->add_setting(
+			'flat_theme_options[heading_font_family]', array(
+			'default' => 'Roboto Slab',
+			'capability' => 'edit_theme_options',
+			'type' => 'option',
+			'sanitize_callback' => 'flat_sanitize_heading_font_family',
+			)
+		);
+		$wp_customize->add_control(
+			'heading_font_family', array(
+			'settings' => 'flat_theme_options[heading_font_family]',
+			'label' => __( 'Heading Font Family', 'flat' ),
+			'section' => 'typography',
+			'type' => 'select',
+			'choices' => array(
+				'Roboto+Slab' => 'Roboto Slab',
+				'Droid+Serif' => 'Droid Serif',
+				'Lora' => 'Lora',
+				'Bitter' => 'Bitter',
+				'Arvo' => 'Arvo',
+				'PT+Serif' => 'PT Serif',
+				'Rokkitt' => 'Rokkitt',
+				'Open+Sans+Condensed' => 'Open Sans Condensed',
+			 ),
+			)
+		);
+
+		// Sub-Heading Font Family
+		$wp_customize->add_setting(
+			'flat_theme_options[sub_heading_font_family]', array(
+			'default' => 'Roboto Condensed',
+			'capability' => 'edit_theme_options',
+			'type' => 'option',
+			'sanitize_callback' => 'flat_sanitize_subheading_font_family',
+			)
+		);
+		$wp_customize->add_control(
+			'sub_heading_font_family', array(
+			'settings' => 'flat_theme_options[sub_heading_font_family]',
+			'label' => __( 'Sub-Heading Font Family', 'flat' ),
+			'section' => 'typography',
+			'type' => 'select',
+			'choices' => array(
+				'Roboto+Condensed' => 'Roboto Condensed',
+				'Open+Sans+Condensed' => 'Open Sans Condensed',
+				'PT+Sans+Narrow' => 'PT Sans Narrow',
+				'Dosis' => 'Dosis',
+				'Abel' => 'Abel',
+				'News+Cycle' => 'News Cycle',
+			 ),
+			)
+		);
+
 	endif;
 
 	// Single Post Settings
-	$wp_customize->add_section( 'layout_single', array(
+	$wp_customize->add_section(
+		'layout_single', array(
 		'title' => __( 'Single Post', 'flat' ),
 		'priority' => 110,
-	) );
+		)
+	);
 
 	// Single Featured Image
-	$wp_customize->add_setting( 'flat_theme_options[single_featured_image]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[single_featured_image]', array(
 		'default' => '1',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'single_featured_image', array(
+		)
+	);
+	$wp_customize->add_control(
+		'single_featured_image', array(
 		'label' => __( 'Hide Featured Image', 'flat' ),
 		'section' => 'layout_single',
 		'settings' => 'flat_theme_options[single_featured_image]',
 		'type' => 'checkbox',
-	) );
+		)
+	);
 
 	// Single Metadata
-	$wp_customize->add_setting( 'flat_theme_options[single_metadata]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[single_metadata]', array(
 		'default' => '0',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'single_metadata', array(
+		)
+	);
+	$wp_customize->add_control(
+		'single_metadata', array(
 		'label' => __( 'Hide Metadata', 'flat' ),
 		'section' => 'layout_single',
 		'settings' => 'flat_theme_options[single_metadata]',
 		'type' => 'checkbox',
-	) );
+		)
+	);
 
 	// Single Author Box
-	$wp_customize->add_setting( 'flat_theme_options[single_author_box]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[single_author_box]', array(
 		'default' => '0',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'single_author_box', array(
+		)
+	);
+	$wp_customize->add_control(
+		'single_author_box', array(
 		'label' => __( 'Hide Author Box', 'flat' ),
 		'section' => 'layout_single',
 		'settings' => 'flat_theme_options[single_author_box]',
 		'type' => 'checkbox',
-	) );
+		)
+	);
 
 	// Archive Settings
-	$wp_customize->add_section( 'layout_archive', array(
+	$wp_customize->add_section(
+		'layout_archive', array(
 		'title' => __( 'Archive Pages', 'flat' ),
 		'priority' => 100,
-	) );
+		)
+	);
 
 	// Archive Featured Image
-	$wp_customize->add_setting( 'flat_theme_options[archive_featured_image]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[archive_featured_image]', array(
 		'default' => '0',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'archive_featured_image', array(
+		)
+	);
+	$wp_customize->add_control(
+		'archive_featured_image', array(
 		'label' => __( 'Hide Featured Image', 'flat' ),
 		'section' => 'layout_archive',
 		'settings' => 'flat_theme_options[archive_featured_image]',
 		'type' => 'checkbox',
-	) );
+		)
+	);
 
 	// Archive Metadata
-	$wp_customize->add_setting( 'flat_theme_options[archive_metadata]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[archive_metadata]', array(
 		'default' => '0',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'archive_metadata', array(
+		)
+	);
+	$wp_customize->add_control(
+		'archive_metadata', array(
 		'label' => __( 'Hide Metadata', 'flat' ),
 		'section' => 'layout_archive',
 		'settings' => 'flat_theme_options[archive_metadata]',
 		'type' => 'checkbox',
-	) );
+		)
+	);
 
 	// Archive Content
-	$wp_customize->add_setting( 'flat_theme_options[archive_content]', array(
+	$wp_customize->add_setting(
+		'flat_theme_options[archive_content]', array(
 		'default' => '0',
 		'capability' => 'edit_theme_options',
 		'type' => 'option',
 		'sanitize_callback' => 'flat_sanitize_checkbox',
-	) );
-	$wp_customize->add_control( 'archive_content', array(
+		)
+	);
+	$wp_customize->add_control(
+		'archive_content', array(
 		'label' => __( 'Show Post Excerpt', 'flat' ),
 		'section' => 'layout_archive',
 		'settings' => 'flat_theme_options[archive_content]',
 		'type' => 'checkbox',
-	) );
-
+		)
+	);
 
 }
 add_action( 'customize_register', 'flat_customize_register' );
@@ -432,7 +537,7 @@ function flat_sanitize_site_title_font_family( $site_title_font_family ) {
 }
 
 function flat_sanitize_text( $input ) {
-    return wp_kses_post( force_balance_tags( $input ) );
+	return wp_kses_post( force_balance_tags( $input ) );
 }
 
 function flat_sanitize_global_font_family( $global_font_family ) {
@@ -542,10 +647,10 @@ function flat_custom_font() {
 	$sub_heading_font_family = flat_get_theme_option( 'sub_heading_font_family', 'Roboto+Condensed' );
 
 	echo '<style type="text/css">';
-		echo '#masthead .site-title {font-family:' . esc_attr( str_replace( array( '+', ':400,700'), array( ' ', '' ), $site_title_font_family ) ) . '}';
-		echo 'body {font-family:' . esc_attr( str_replace( array( '+', ':400,700'), array( ' ', ' ' ), $global_font_family ) ) . '}';
-		echo 'h1,h2,h3,h4,h5,h6 {font-family:' . esc_attr( str_replace( array( '+', ':400,700'), array( ' ', ' ' ), $heading_font_family ) ) . '}';
-		echo '#masthead .site-description, .hentry .entry-meta {font-family:' . esc_attr( str_replace( array( '+', ':400,700'), array( ' ', ' ' ), $sub_heading_font_family ) ) . '}';
+		echo '#masthead .site-title {font-family:' . esc_attr( str_replace( array( '+', ':400,700' ), array( ' ', '' ), $site_title_font_family ) ) . '}';
+		echo 'body {font-family:' . esc_attr( str_replace( array( '+', ':400,700' ), array( ' ', ' ' ), $global_font_family ) ) . '}';
+		echo 'h1,h2,h3,h4,h5,h6 {font-family:' . esc_attr( str_replace( array( '+', ':400,700' ), array( ' ', ' ' ), $heading_font_family ) ) . '}';
+		echo '#masthead .site-description, .hentry .entry-meta {font-family:' . esc_attr( str_replace( array( '+', ':400,700' ), array( ' ', ' ' ), $sub_heading_font_family ) ) . '}';
 	echo '</style>';
 }
 add_action( 'wp_head', 'flat_custom_font' );
@@ -562,9 +667,11 @@ function flat_fonts_url() {
 	$fonts[] = flat_get_theme_option( 'sub_heading_font_family', 'Roboto+Condensed' );
 
 	if ( $fonts ) {
-		$fonts_url = add_query_arg( array(
-			'family' => esc_attr( implode( '%7C', $fonts ) )
-		), '//fonts.googleapis.com/css' );
+		$fonts_url = add_query_arg(
+			array(
+			'family' => esc_attr( implode( '%7C', $fonts ) ),
+			), '//fonts.googleapis.com/css'
+		);
 	}
 
 	return $fonts_url;
@@ -587,7 +694,7 @@ function flat_logo() {
 	$logo = esc_url( flat_get_theme_option( 'logo' ) );
 	$tagline = get_bloginfo( 'description' );
 
-	echo '<h1 class="site-title ' . esc_attr( $header_class ) . '"><a href="' . esc_url( home_url( '/' ) ) . '" title="'. esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">';
+	echo '<h1 class="site-title ' . esc_attr( $header_class ) . '"><a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">';
 
 	if ( 'display-title' !== $header_class ) {
 		echo '<img itemprop="primaryImageofPage" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" src="' . esc_attr( $logo ) . '" />';

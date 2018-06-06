@@ -19,7 +19,8 @@ if ( ! function_exists( 'flat_entry_meta' ) ) :
 	function flat_entry_meta( $show_sep = true, $author_postbox = false ) {
 		if ( true === $author_postbox ) {
 			/* translators: 1: Permalink, 2: Computer-friendly published date, 3: User-friendly published date, 4: Author archive link, 5: Author name */
-			printf( __( '<span class="entry-date"><a href="%1$s" rel="bookmark"><time class="entry-date published" datetime="%2$s" itemprop="datepublished">%3$s</time></a></span> by <span class="author vcard"><a class="url fn n" href="%4$s" rel="author" itemprop="url">%5$s</a></span>', 'flat' ),
+			printf(
+				__( '<span class="entry-date"><a href="%1$s" rel="bookmark"><time class="entry-date published" datetime="%2$s" itemprop="datepublished">%3$s</time></a></span> by <span class="author vcard"><a class="url fn n" href="%4$s" rel="author" itemprop="url">%5$s</a></span>', 'flat' ),
 				esc_url( get_permalink() ),
 				esc_attr( get_the_date( 'c' ) ),
 				esc_html( get_the_date() ),
@@ -28,7 +29,8 @@ if ( ! function_exists( 'flat_entry_meta' ) ) :
 			);
 		} else {
 			/* translators: 1: Permalink, 2: Computer-friendly published date, 3: User-friendly published date, 4: Author archive link, 5: Author name */
-			printf( __( '<span class="entry-date"><a href="%1$s" rel="bookmark"><time class="entry-date published" datetime="%2$s" itemprop="datepublished">%3$s</time></a></span> by <span class="author vcard" itemscope itemprop="author" itemtype="http://schema.org/Person"><a class="url fn n" href="%4$s" rel="author" itemprop="url"><span itemprop="name">%5$s</span></a></span>', 'flat' ),
+			printf(
+				__( '<span class="entry-date"><a href="%1$s" rel="bookmark"><time class="entry-date published" datetime="%2$s" itemprop="datepublished">%3$s</time></a></span> by <span class="author vcard" itemscope itemprop="author" itemtype="http://schema.org/Person"><a class="url fn n" href="%4$s" rel="author" itemprop="url"><span itemprop="name">%5$s</span></a></span>', 'flat' ),
 				esc_url( get_permalink() ),
 				esc_attr( get_the_date( 'c' ) ),
 				esc_html( get_the_date() ),
@@ -154,11 +156,13 @@ if ( ! function_exists( 'get_the_post_navigation' ) ) :
 	 * @return string Markup for post links.
 	 */
 	function get_the_post_navigation( $args = array() ) {
-		$args = wp_parse_args( $args, array(
+		$args = wp_parse_args(
+			$args, array(
 			'prev_text'          => '%title',
 			'next_text'          => '%title',
 			'screen_reader_text' => __( 'Post navigation', 'flat' ),
-		) );
+			)
+		);
 
 		$navigation = '';
 		$previous   = get_previous_post_link( '<div class="nav-previous">%link</div>', $args['prev_text'] );
@@ -202,12 +206,14 @@ if ( ! function_exists( 'get_the_posts_pagination' ) ) :
 
 		// Don't print empty markup if there's only one page.
 		if ( $GLOBALS['wp_query']->max_num_pages > 1 ) {
-			$args = wp_parse_args( $args, array(
+			$args = wp_parse_args(
+				$args, array(
 				'mid_size'           => 1,
 				'prev_text'          => __( 'Previous', 'flat' ),
 				'next_text'          => __( 'Next', 'flat' ),
 				'screen_reader_text' => __( 'Posts navigation', 'flat' ),
-			) );
+				)
+			);
 
 			// Make sure we get a string back. Plain is the next best thing.
 			if ( isset( $args['type'] ) && 'array' == $args['type'] ) {

@@ -1,0 +1,28 @@
+{
+  "name": "codeinwp/flatx",
+  "description": "flatx by ThemeIsle.",
+  "homepage": "https://themeisle.com/plugins/flatx/",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "ThemeIsle Team",
+      "email": "friends@themeisle.com.com",
+      "homepage": "https://themeisle.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "support": {
+    "issues": "https://github.com/Codeinwp/flatx/issues",
+    "source": "https://github.com/Codeinwp/flatx"
+  },
+  "type": "wordpress-theme",
+  "require": {
+    "codeinwp/themeisle-sdk": "master"
+  },
+  "autoload": {
+    "files": [
+      "vendor/codeinwp/themeisle-sdk/load.php"
+    ]
+  }
+}
